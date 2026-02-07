@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class FileManipulation {
     public static void main(String[] args) {
-        writeTextToFile("student_file.txt", "Name: Valdemar Buco");
-        readTextFromFile("student_file.txt");
+        writeTextToFile("student_info.txt", "Name: Maria Silva");
+        readTextFromFile("student_info.txt");
     }
 
     // Creating a new file if file does not exist
@@ -20,7 +20,7 @@ public class FileManipulation {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
                 writer.write(content);
                 writer.newLine();
-                writer.write("Food I Like: Funge, Calulu de Peixe, Calulu de Carne Seca, Pernil, Feijoada");
+                writer.write("Food I Like: Sushi, Pasta, Ice Cream");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -29,7 +29,7 @@ public class FileManipulation {
                 writer.newLine();
                 writer.write(content);
                 writer.newLine();
-                writer.write("Food I Like: Funge, Pernil, Feijoada");
+                writer.write("Food I Like: Sushi, Pasta, Ice Cream");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
