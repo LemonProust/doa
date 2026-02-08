@@ -1,10 +1,11 @@
+import java.io.*;
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class PrimeMatrix {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("******** CHECKING PRIME NUMBERS *********");
         System.out.println("---------------------------------------------");
@@ -25,6 +26,11 @@ public class PrimeMatrix {
         System.out.println("Enter the number columns of the matrix: ");
         int columns = scanner.nextInt();
         generatePrimeMatrix(rows, columns);
+        try {
+            fileBasedPrimeMatrix("matrix_config.txt");
+        }catch(FileNotFoundException e){
+            System.out.println(e.getMessage());
+        }
 
         scanner.close();
 
@@ -59,7 +65,7 @@ public class PrimeMatrix {
     }
 
     // Method responsible for generate Prime Matrix
-    public static void generatePrimeMatrix(int rows, int cols) {
+    public static int[][] generatePrimeMatrix(int rows, int cols) {
         int[][] matrix = new int[rows][cols];
         int currentNumber = 2;
         int primesFound = 0;
@@ -76,11 +82,71 @@ public class PrimeMatrix {
             currentNumber++;
         }
 
+        return matrix;
+    }
+
+    public static void fileBasedPrimeMatrix(String filename) throws FileNotFoundException {
+        System.out.println("******** GENERATING PRIME MATRIX FROM A CONFIGURATION FILE *********");
+        System.out.println("---------------------------------------------------------------------");
+
+        int rows = 0;
+        int cols = 0;
+
+//        File configFile = new File(filename);
+//        Scanner  fileScanner = new Scanner(configFile);
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))) {
+            String firstLine = bufferedReader.readLine();
+            String secondLine = bufferedReader.readLine();
+            if (firstLine == null || secondLine == null) {
+                throw new IOException("The file contains null lines!");
+            }
+            rows = Integer.parseInt(firstLine.trim());
+            cols = Integer.parseInt(secondLine.trim());
+
+            System.out.printf("Read from file: %d, rows, %d, cols%n", rows, cols);
+
+            int[][] matrix = generatePrimeMatrix(rows, cols);
+            System.out.println("Generated Prime Matrix: ");
+            displayPrimeMatrix(matrix);
+
+            // Save to file
+            saveMatrixToFile(matrix, "prime_matrix.txt");
+            System.out.println("\nMatrix saved to file : prime_matrix.txt");
+
+        } catch (IOException e) {
+            throw new NumberFormatException("Invalid Format in file!");
+        }
+    }
+
+    private static void saveMatrixToFile(int[][] matrix, String filename) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            int rows = matrix.length;
+            int cols = matrix[0].length;
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    writer.write(String.valueOf(matrix[i][j]));
+                    if (j < cols - 1) {
+                        writer.write(" ");
+                    }
+                }
+                writer.write("\n");
+            }
+        }
+
+    }
+
+
+    public static void displayPrimeMatrix(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
         // Display the matrix
         System.out.println(STR."Prime Matrix \{rows} x \{cols}: ");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                System.out.printf("%4d ", matrix[i][j]);
+                System.out.print(matrix[i][j]);
+                if (j < cols - 1) {
+                    System.out.print(" ");
+                }
             }
             System.out.println();
         }

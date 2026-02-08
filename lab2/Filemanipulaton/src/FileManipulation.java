@@ -13,11 +13,11 @@ public class FileManipulation {
 
     // Creating a new file if file does not exist
     // If file already exists, merge it
-    public static void writeTextToFile(String fileName, String content) {
-        Path path = Paths.get(fileName);
+    public static void writeTextToFile(String filename, String content) {
+        Path path = Paths.get(filename);
         // If file does not exist then create new one
         if (!Files.exists(path)) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
                 writer.write(content);
                 writer.newLine();
                 writer.write("Food I Like: Sushi, Pasta, Ice Cream");
@@ -25,7 +25,7 @@ public class FileManipulation {
                 throw new RuntimeException(e);
             }
         } else {// Append the text
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
                 writer.newLine();
                 writer.write(content);
                 writer.newLine();
@@ -37,13 +37,13 @@ public class FileManipulation {
     }
 
     // Reade a file given
-    public static void readTextFromFile(String fileName) {
-        Path path = Paths.get(fileName);
+    public static void readTextFromFile(String filename) {
+        Path path = Paths.get(filename);
 
         if (!Files.exists(path)) {
-            throw new RuntimeException(STR."File not found: \{fileName}");
+            throw new RuntimeException(STR."File not found: \{filename}");
         }
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
