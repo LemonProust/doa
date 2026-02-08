@@ -41,7 +41,7 @@ public class FileManipulation {
         Path path = Paths.get(fileName);
 
         if (!Files.exists(path)) {
-            throw new RuntimeException("File not found: " + fileName);
+            throw new RuntimeException(STR."File not found: \{fileName}");
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
