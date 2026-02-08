@@ -1,19 +1,34 @@
 package employees;
 
 import address.Address;
-import utils.ValidationUtils;
 
 import java.time.LocalDate;
 
-public class Salesperson extends Employee{
+public class Salesperson extends Employee {
     private double commissionRate;
     private double totalSales; // Cumulative sales amount
 
-    public Salesperson(int employeeId, String name, String nif, String email, String phone, Address address, LocalDate hireDate, double salary, double commissionRate, double totalSales) {
+    public Salesperson(int employeeId, String name, String nif, String email, String phone, String address, LocalDate hireDate, double salary, double commissionRate, double totalSales) {
         super(employeeId, name, nif, email, phone, address, hireDate, salary);
         validateCommissionRate(commissionRate);
         validateTotalSales(totalSales);
         this.commissionRate = commissionRate;
+        this.totalSales = totalSales;
+    }
+
+    public double getCommissionRate() {
+        return commissionRate;
+    }
+
+    public void setCommissionRate(double commissionRate) {
+        this.commissionRate = commissionRate;
+    }
+
+    public double getTotalSales() {
+        return totalSales;
+    }
+
+    public void setTotalSales(double totalSales) {
         this.totalSales = totalSales;
     }
 
@@ -32,7 +47,7 @@ public class Salesperson extends Employee{
 
     @Override
     public double calculatePay() {
-        return getSalary() + (totalSales * commissionRate/100.00);
+        return getSalary() + (totalSales * commissionRate / 100.00);
     }
 
     @Override

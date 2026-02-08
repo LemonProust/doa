@@ -8,8 +8,12 @@ public class Manager extends Employee {
     private String department;
     private double bonus; //Annual performance
 
-    public Manager(String firstName, String lastName, String email, String phone, Address address, LocalDate hireDate, double salary, String department, double bonus) {
-        super(firstName, lastName, email, phone, address, hireDate, salary);
+    public Manager(int employeeId, String name, String nif, String email, String phone, String address, LocalDate hireDate, double salary, String department, double bonus) {
+        super(employeeId, name, nif, email, phone, address, hireDate, salary);
+
+        validateDepartment(department);
+        validateBonus(bonus);
+
         this.department = department;
         this.bonus = bonus;
     }
@@ -19,6 +23,8 @@ public class Manager extends Employee {
     }
 
     public void setDepartment(String department) {
+        validateDepartment(department);
+        this.department = department.trim();
     }
 
     public double getBonus() {
@@ -29,12 +35,44 @@ public class Manager extends Employee {
         this.bonus = bonus;
     }
 
-    public void relocateDepartment(String newDepartment) {
-        this.department = newDepartment;
+    private void validateBonus(double bonus) {
+        if (bonus < 0) {
+            throw new IllegalArgumentException("Bonus cannot be negative.");
+        }
+    }
+
+    private void validateDepartment(String department) {
+        if (department == null) {
+            throw new IllegalArgumentException("Department cannot be null.");
+        }
     }
 
     @Override
-    public Double calculateMonthlyPay() {
-        return super.calculateMonthlyPay();
+    public double calculatePay() {
+        return getSalary() + bonus;
+    }
+
+    @Override
+    public String toCSV() {
+        return String.format(
+                "%d,MANAGER,%s,%s,%s,%.2f,%s,%.2f",
+                getEmployeeId(),
+                getName(),
+                getNif(),
+                getHireDate(),
+                getSalary(),
+                department,
+                bonus
+        );
+    }
+
+    @Override
+    public void fromCSV(String csvLine) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 }

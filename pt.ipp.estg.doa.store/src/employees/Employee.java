@@ -1,6 +1,5 @@
 package employees;
 
-import address.Address;
 import utils.Persistable;
 import utils.ValidationUtils;
 
@@ -13,11 +12,11 @@ public abstract class Employee implements Persistable {
     private final String nif;
     private String email;
     private String phone;
-    private Address address;
+    private String address;
     private final LocalDate hireDate;
     private double salary;
 
-    public Employee(int employeeId, String name, String nif,String email, String phone, Address address, LocalDate hireDate, double salary) {
+    public Employee(int employeeId, String name, String nif, String email, String phone, String address, LocalDate hireDate, double salary) {
 
         ValidationUtils.validateId(employeeId);
         ValidationUtils.validateName(name);
@@ -50,7 +49,7 @@ public abstract class Employee implements Persistable {
         this.phone = phone;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -78,7 +77,7 @@ public abstract class Employee implements Persistable {
         return phone;
     }
 
-    public Address getAddress() {
+    public String getAddress() {
         return address;
     }
 
