@@ -32,7 +32,7 @@ public class ValidationUtils {
     }
 
     public static void validatePhone(String phone) {
-        if (phone == null || phone.length() != 11 || !phone.matches("\\d{4}-\\d{3}-\\d{3}-\\d{3}")) {
+        if (phone == null || phone.length() != 13) {
             throw new IllegalArgumentException("Invalid Phone Number!");
         }
     }
