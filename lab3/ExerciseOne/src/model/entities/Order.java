@@ -2,6 +2,9 @@ package model.entities;
 
 import model.Common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order extends Common {
     private List<Book> books = new ArrayList<>();
     private double totalPrice;

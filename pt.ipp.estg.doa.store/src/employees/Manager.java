@@ -1,7 +1,5 @@
 package employees;
 
-import address.Address;
-
 import java.time.LocalDate;
 
 public class Manager extends Employee {
