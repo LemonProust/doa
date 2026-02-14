@@ -54,4 +54,16 @@ public class ValidationUtils {
         }
     }
 
+    public static void requireNonBlank(String name, String description) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name is required and cannot be empty.");
+        }
+    }
+
+    public static void requirePositive(double weight, String description) {
+        if (weight <= 0) {
+            throw new IllegalArgumentException("Weight must be greater than zero.");
+        }
+
+    }
 }

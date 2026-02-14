@@ -14,7 +14,7 @@ public class EmployeeManager {
     private final Map<Integer, Employee> employees = new HashMap<>();
     private int nextId = 1;
 
-    // Add Employee --> Salesperson
+    // ADD Employee --> Salesperson
     public Salesperson addSalesPerson(
             String name, String nif, String email, String phone, String address, LocalDate hireDate, double salary, double commissionRate
     ) {
@@ -73,7 +73,7 @@ public class EmployeeManager {
         return employees.get(employeeId);
     }
 
-    // Find User by name
+    // Find User by NAME
     public List<Employee> findByName(String name) {
         if (name == null || name.isBlank()) {
             return List.of();
