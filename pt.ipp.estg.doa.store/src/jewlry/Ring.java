@@ -37,6 +37,12 @@ public class Ring extends Jewelry {
 
     @Override
     public void fromCSV(String csvLine) {
-
+        String[] parts = csvLine.split(",\\S*");
+        setName(parts[2]);
+        setMaterial(parts[3]);
+        setWeight(Double.parseDouble(parts[4]));
+        setSize(Integer.parseInt(parts[5]));
+        setPrice(Double.parseDouble(parts[6]));
+        setStock(Integer.parseInt(parts[7]));
     }
 }

@@ -15,7 +15,6 @@ public class JewelryManager {
     public Necklace addNecklace(String name, String material, double weight,
                                 double price, int stock, Category category, double length) {
 
-
         Necklace n = new Necklace(
                 nextId++,
                 name,
@@ -213,6 +212,52 @@ public class JewelryManager {
     }
 
     // TODO: UPDATE
+    // UPDATE jewelry base fields
+    public boolean updateJewelry(
+            int jewelryId,
+            String name,
+            String material,
+            Double weight,
+            Double price,
+            Integer stock
+            ) {
+
+        Jewelry jewelry = getExistingJewelry(jewelryId);
+
+        if (name != null) jewelry.setName(name);
+        if (material != null) jewelry.setMaterial(material);
+        if (weight != null) jewelry.setWeight(weight);
+        if (price != null) jewelry.setPrice(price);
+        if (stock != null) jewelry.setStock(stock);
+        return true;
+    }
+
+    public boolean updateNecklace(int id, Double length) {
+        Jewelry jewelry = getExistingJewelry(id);
+        if (!(jewelry instanceof Necklace necklace)) {
+            throw new IllegalArgumentException("Jewelry with id " + id + " is not a Necklace");
+        }
+        if (length != null) necklace.setLength(length);
+        return true;
+    }
+
+    public boolean updateRing(int id, Integer size) {
+        Jewelry jewelry = getExistingJewelry(id);
+        if (!(jewelry instanceof Ring ring)) {
+            throw new IllegalArgumentException("Jewelry with id " + id + " is not a Ring");
+        }
+        if (size != null) ring.setSize(size);
+        return true;
+    }
+
+    public boolean updateEarring(int id, String claspType) {
+        Jewelry jewelry = getExistingJewelry(id);
+        if (!(jewelry instanceof Earring earring)) {
+            throw new IllegalArgumentException("Jewelry with id " + id + " is not a Earring");
+        }
+        if (claspType != null) earring.setClaspType(claspType);
+        return true;
+    }
 
     // DELETE
     public boolean remove(int nextId) {
@@ -220,7 +265,7 @@ public class JewelryManager {
             getExistingJewelry(nextId);
             jewelries.remove(nextId);
             return true;
-        }catch (Exception e) {
+        } catch (Exception e) {
             return false;
         }
     }
@@ -233,5 +278,4 @@ public class JewelryManager {
         }
         return j;
     }
-
 }

@@ -22,11 +22,6 @@ public class Earring extends Jewelry {
     }
 
     @Override
-    public void fromCSV(String csvLine) {
-
-    }
-
-    @Override
     public String toCSV() {
         return getJewelryId() + ", EARRING, " +
                 getName() + ", " +
@@ -36,5 +31,16 @@ public class Earring extends Jewelry {
                 getPrice() + ", " +
                 getStock() + ", " +
                 getCategory();
+    }
+
+    @Override
+    public void fromCSV(String csvLine) {
+        String[] parts = csvLine.split(",\\S*");
+        setName(parts[2]);
+        setMaterial(parts[3]);
+        setWeight(Double.parseDouble(parts[4]));
+        setClaspType(parts[5]);
+        setPrice(Double.parseDouble(parts[6]));
+        setStock(Integer.parseInt(parts[7]));
     }
 }
