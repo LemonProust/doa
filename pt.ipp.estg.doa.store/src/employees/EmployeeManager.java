@@ -151,21 +151,21 @@ public class EmployeeManager {
         for (String line : lines) {
             String[] parts = line.split(",");
 
-            int id = Integer.parseInt(parts[0]);
-            String type = parts[1];
-            String name = parts[2];
-            String nif = parts[3];
-            String email = parts[4];
-            String phone = parts[5];
-            String address = parts[6];
-            LocalDate hireDate = LocalDate.parse(parts[7]);
-            double salary = Double.parseDouble(parts[8]);
+            int id = Integer.parseInt(parts[0].trim());
+            String type = parts[1].trim();
+            String name = parts[2].trim();
+            String nif = parts[3].trim();
+            String email = parts[4].trim();
+            String phone = parts[5].trim();
+            String address = parts[6].trim();
+            LocalDate hireDate = LocalDate.parse(parts[7].trim());
+            double salary = Double.parseDouble(parts[8].trim());
 
             Employee employee;
 
             if ("SALESPERSON".equals(type)) {
-                double commissionRate = Double.parseDouble(parts[9]);
-                double totalSales = Double.parseDouble(parts[10]);
+                double commissionRate = Double.parseDouble(parts[9].trim());
+                double totalSales = Double.parseDouble(parts[10].trim());
 
                 employee = new Salesperson(
                         id,
@@ -180,8 +180,8 @@ public class EmployeeManager {
                         totalSales
                 );
             } else if ("MANAGER".equals(type)) {
-                String department = parts[7];
-                double bonus = Double.parseDouble(parts[8]);
+                String department = parts[9].trim();
+                double bonus = Double.parseDouble(parts[10].trim());
 
                 employee = new Manager(
                         id,

@@ -53,10 +53,13 @@ public class Manager extends Employee {
     @Override
     public String toCSV() {
         return String.format(
-                "%d,MANAGER,%s,%s,%s,%.2f,%s,%.2f",
+                "%d,MANAGER,%s,%s,%s,%s,%s,%s,%.2f,%s,%.2f",
                 getEmployeeId(),
                 getName(),
                 getNif(),
+                getEmail(),
+                getPhone(),
+                getAddress(),
                 getHireDate(),
                 getSalary(),
                 department,

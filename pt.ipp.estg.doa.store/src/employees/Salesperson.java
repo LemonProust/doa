@@ -51,10 +51,13 @@ public class Salesperson extends Employee {
     @Override
     public String toCSV() {
         return String.format(
-                "%d,SALESPERSON,%s,%s,%s,%.2f,%.2f,%.2f",
+                "%d,SALESPERSON,%s,%s,%s,%s,%s,%s,%.2f,%.2f,%.2f",
                 getEmployeeId(),
                 getName(),
                 getNif(),
+                getEmail(),
+                getPhone(),
+                getAddress(),
                 getHireDate(),
                 getSalary(),
                 commissionRate,
