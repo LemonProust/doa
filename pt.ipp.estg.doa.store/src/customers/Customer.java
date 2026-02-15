@@ -1,6 +1,9 @@
 package customers;
 
-public class Customer {
+import utils.Persistable;
+import utils.ValidationUtils;
+
+public class Customer implements Persistable {
     private int customerId;
     private String name;
     private String nif;
@@ -8,7 +11,14 @@ public class Customer {
     private String phone;
     private String address;
 
-    public Customer(String name, String nif, String email, String phone, String address) {
+    public Customer(int customerId, String name, String nif, String email, String phone, String address) {
+        ValidationUtils.validateId(customerId);
+        ValidationUtils.validateName(name);
+        ValidationUtils.validateNif(nif);
+        ValidationUtils.validateEmail(email);
+        ValidationUtils.validatePhone(phone);
+
+        this.customerId = customerId;
         this.name = name;
         this.nif = nif;
         this.email = email;
@@ -20,15 +30,12 @@ public class Customer {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
+        ValidationUtils.validateName(name);
         this.name = name;
     }
 
@@ -37,6 +44,7 @@ public class Customer {
     }
 
     public void setNif(String nif) {
+        ValidationUtils.validateNif(nif);
         this.nif = nif;
     }
 
@@ -45,6 +53,7 @@ public class Customer {
     }
 
     public void setEmail(String email) {
+        ValidationUtils.validateEmail(email);
         this.email = email;
     }
 
@@ -53,6 +62,7 @@ public class Customer {
     }
 
     public void setPhone(String phone) {
+        ValidationUtils.validatePhone(phone);
         this.phone = phone;
     }
 
@@ -62,5 +72,32 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getFullCustomerData() {
+        return getCustomerId() + " " + getName() + " " + getEmail() + " " + getPhone() + " " + getAddress() + " " + getNif();
+    }
+
+    @Override
+    public String toCSV() {
+        return String.format(
+                "%d,SALESPERSON,%s,%s,%s,%s,%s",
+                getCustomerId(),
+                getName(),
+                getNif(),
+                getEmail(),
+                getPhone(),
+                getAddress()
+        );
+    }
+
+    @Override
+    public void fromCSV(String csvLine) {
+
+    }
+
+    @Override
+    public String toString() {
+        return getFullCustomerData();
     }
 }

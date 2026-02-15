@@ -141,7 +141,7 @@ public class EmployeeManager {
     // Business
     public double calculateTotalPayroll() {
         return employees.values().stream()
-                .mapToDouble(employee -> employee.getSalary())
+                .mapToDouble(Employee::getSalary)
                 .sum();
     }
 

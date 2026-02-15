@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public abstract class Employee implements Persistable {
-    private int employeeId;
+    private final int employeeId;
     private String name;
     private final String nif;
     private String email;
