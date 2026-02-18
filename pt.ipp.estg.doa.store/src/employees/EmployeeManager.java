@@ -1,6 +1,7 @@
 package employees;
 
 import utils.CSVUtil;
+import utils.Searchable;
 import utils.ValidationUtils;
 
 import java.time.LocalDate;
@@ -10,13 +11,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class EmployeeManager {
+public class EmployeeManager implements Searchable {
     private final Map<Integer, Employee> employees = new HashMap<>();
     private int nextId = 1;
 
     // ADD Employee --> Salesperson
-    public Salesperson addSalesPerson(
-            String name, String nif, String email, String phone, String address, LocalDate hireDate, double salary, double commissionRate
+    public Salesperson addSalesPerson (
+            String name,
+            String nif,
+            String email,
+            String phone,
+            String address,
+            LocalDate hireDate,
+            double salary,
+            double commissionRate
     ) {
         ensureUniqueNif(nif);
 
@@ -67,11 +75,14 @@ public class EmployeeManager {
     }
 
     // Find users by ID
+    @Override
     public Employee findById(int employeeId) {
         return employees.get(employeeId);
     }
 
+
     // Find User by NAME
+    @Override
     public List<Employee> findByName(String name) {
         if (name == null || name.isBlank()) {
             return List.of();
@@ -87,7 +98,7 @@ public class EmployeeManager {
     }
 
     // Show all employees
-    public List<Employee> listAll() {
+    public List<Employee> findAll() {
         return new ArrayList<>(employees.values());
     }
 
@@ -95,16 +106,14 @@ public class EmployeeManager {
     public List<Salesperson> listSalespeople() {
         return employees.values().stream()
                 .filter(employee -> employee instanceof Salesperson)
-                .map(employee -> (Salesperson) employee)
-                .collect(Collectors.toList());
+                .map(employee -> (Salesperson) employee).toList();
     }
 
     // Show managers
     public List<Manager> listManagers() {
         return employees.values().stream()
                 .filter(employee -> employee instanceof Manager)
-                .map(employee -> (Manager) employee)
-                .collect(Collectors.toList());
+                .map(employee -> (Manager) employee).toList();
     }
 
     // ---------- Update -------------------------

@@ -10,6 +10,7 @@ import orders.OrderItem;
 import orders.OrderManager;
 import payments.PaymentMethod;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -45,6 +46,7 @@ public class ConsoleUI {
             System.out.println("2. Jewelry");
             System.out.println("3. Orders");
             System.out.println("4. Payments");
+            System.out.println("5. Customer");
             System.out.println("0. Exit");
 
             int op = readInt();
@@ -54,9 +56,84 @@ public class ConsoleUI {
                 case 2 -> jewelryMenu();
                 case 3 -> orderMenu();
                 case 4 -> paymentMenu();
+                case 5 -> customerMenu();
                 case 0 -> running = false;
             }
         }
+    }
+
+    // ========= Save Data =========
+    public void addManagerMenu() {
+
+        sc.nextLine();
+
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("NIF: ");
+        String nif = sc.nextLine();
+
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Phone: ");
+        String phone = sc.nextLine();
+
+        System.out.print("Address: ");
+        String address = sc.nextLine();
+
+        System.out.print("Salary: ");
+        double salary = readDouble();
+
+        System.out.print("Department: ");
+        String department = sc.nextLine();
+
+        System.out.print("Bonus: ");
+        double bonus = readDouble();
+
+        employeeManager.addManager(
+                name, nif, email, phone, address,
+                LocalDate.now(), salary, department, bonus
+        );
+
+        employeeManager.save("employees.csv");
+
+        System.out.println("Manager added.");
+    }
+
+    public void addSalespersonMenu() {
+
+        sc.nextLine();
+
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("NIF: ");
+        String nif = sc.nextLine();
+
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+
+        System.out.print("Phone: ");
+        String phone = sc.nextLine();
+
+        System.out.print("Address: ");
+        String address = sc.nextLine();
+
+        System.out.print("Salary: ");
+        double salary = readDouble();
+
+        System.out.print("Commission rate: ");
+        double commissionRate = readDouble();
+
+        employeeManager.addSalesPerson(
+                name, nif, email, phone, address,
+                LocalDate.now(), salary, commissionRate
+        );
+
+        employeeManager.save("employees.csv");
+
+        System.out.println("Salesperson added.");
     }
 
     // ========= EMPLOYEES =========
@@ -65,13 +142,46 @@ public class ConsoleUI {
 
         System.out.println("\n--- EMPLOYEES ---");
         System.out.println("1. List employees");
-        System.out.println("2. Payroll total");
+        System.out.println("2. Add Manager");
+        System.out.println("3. Add Salesperson");
+        System.out.println("4. Find by Id");
+        System.out.println("5. Find by Name");
+        System.out.println("6. Remove employee");
+        System.out.println("7. Payroll total");
 
         int op = readInt();
+        sc.nextLine(); // limpar ENTER
 
         switch (op) {
-            case 1 -> System.out.println(employeeManager);
-            case 2 -> System.out.printf("Total payroll: %.2f €%n",
+
+            case 1 -> employeeManager.findAll()
+                    .forEach(System.out::println);
+
+            case 2 -> addManagerMenu();
+
+            case 3 -> addSalespersonMenu();
+
+            case 4 -> {
+                System.out.print("Id: ");
+                int id = readInt();
+                System.out.println(employeeManager.findById(id));
+            }
+
+            case 5 -> {
+                System.out.print("Name: ");
+                String name = sc.nextLine();
+                employeeManager.findByName(name)
+                        .forEach(System.out::println);
+            }
+
+            case 6 -> {
+                System.out.print("Id: ");
+                int id = readInt();
+                employeeManager.removeEmployeeById(id);
+                System.out.println("Removed.");
+            }
+
+            case 7 -> System.out.printf("Total payroll: %.2f €%n",
                     employeeManager.calculateTotalPayroll());
         }
     }
@@ -85,6 +195,7 @@ public class ConsoleUI {
         System.out.println("2. Add jewelry");
 
         int op = readInt();
+        sc.nextLine(); // Clear buffer
 
         switch (op) {
             case 1 -> listJewelry();
@@ -205,7 +316,7 @@ public class ConsoleUI {
 
     private void listOrders() {
 
-        for (Order order : orderManager.findAllOrders()) {
+        for (Order order : orderManager.findAll()) {
 
             System.out.println("\nOrder #" + order.getOrderId() +
                     " | date=" + order.getOrderDate() +
@@ -255,6 +366,23 @@ public class ConsoleUI {
         }
     }
 
+    // ========= EMPLOYEES =========
+
+    private void customerMenu() {
+
+        System.out.println("\n--- Customers ---");
+        System.out.println("1. List Customers");
+        System.out.println("2. Edit customer");
+
+        int op = readInt();
+
+        switch (op) {
+            case 1 -> System.out.println(customerManagement);
+            case 2 -> System.out.printf("Total payroll: %.2f €%n",
+                    employeeManager.calculateTotalPayroll());
+        }
+    }
+
     // ========= INPUT SAFE =========
 
     private int readInt() {
@@ -263,5 +391,15 @@ public class ConsoleUI {
             System.out.print("Enter a number: ");
         }
         return sc.nextInt();
+    }
+
+    private double readDouble() {
+        while (!sc.hasNextDouble()) {
+            sc.next();
+            System.out.print("Enter a number: ");
+        }
+        double value = sc.nextDouble();
+        sc.nextLine(); // limpar ENTER
+        return value;
     }
 }

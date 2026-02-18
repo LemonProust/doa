@@ -1,13 +1,14 @@
 package jewlry;
 
 import utils.CSVUtil;
+import utils.Searchable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JewelryManager {
+public class JewelryManager implements Searchable {
     private final Map<Integer, Jewelry> jewelries = new HashMap<>();
     private int nextId = 1;
 
@@ -145,7 +146,7 @@ public class JewelryManager {
     }
 
     // Find Jewelry by ID
-    public Jewelry findJewelry(int jewelryId) {
+    public Jewelry findById(int jewelryId) {
         return jewelries.get(jewelryId);
     }
 

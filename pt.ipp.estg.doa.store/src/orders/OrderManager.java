@@ -5,6 +5,7 @@ import jewlry.JewelryManager;
 import payments.PaymentManager;
 import payments.PaymentMethod;
 import utils.CSVUtil;
+import utils.Searchable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OrderManager {
+public class OrderManager implements Searchable {
     private final Map<Integer, Order> orders = new HashMap<>();
     private int nextId = 1;
     private final JewelryManager jewelryManager;
@@ -31,7 +32,7 @@ public class OrderManager {
 
     public void addItem(int orderId, int jewelryId, int quantity) {
         Order order = getExistingOrder(orderId);
-        Jewelry jewelry = jewelryManager.findJewelry(jewelryId);
+        Jewelry jewelry = jewelryManager.findById(jewelryId);
 
         if (jewelry == null) {
             throw new IllegalArgumentException("Jewelry with id " + jewelryId + " not found.");
@@ -51,11 +52,15 @@ public class OrderManager {
         order.addItem(item);
     }
 
-    public Order findOrder(int orderId) {
+    public Order findById(int orderId) {
         return orders.get(orderId);
     }
 
-    public List<Order> findAllOrders() {
+    public List<Order> findByName(String name) {
+        return new ArrayList<>(orders.values());
+    }
+
+    public List<Order> findAll() {
         return new ArrayList<>(orders.values());
     }
 
@@ -91,7 +96,7 @@ public class OrderManager {
 
         Order order = getExistingOrder(orderId);
         for (OrderItem item : order.getItems()) {
-            Jewelry jewelry = jewelryManager.findJewelry(item.getJewelryId());
+            Jewelry jewelry = jewelryManager.findById(item.getJewelryId());
             if (jewelry != null) {
                 jewelry.increaseStock(item.getQuantity());
             }
