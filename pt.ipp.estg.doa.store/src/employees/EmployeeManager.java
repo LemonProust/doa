@@ -16,7 +16,7 @@ public class EmployeeManager implements Searchable {
     private int nextId = 1;
 
     // ADD Employee --> Salesperson
-    public Salesperson addSalesPerson (
+    public void addSalesPerson (
             String name,
             String nif,
             String email,
@@ -41,11 +41,11 @@ public class EmployeeManager implements Searchable {
                 0.00
         );
         employees.put(sp.getEmployeeId(), sp);
-        return sp;
+        //return sp;
     }
 
     // Add Employee --> Manager
-    public Manager addManager(
+    public void addManager(
             String name,
             String nif,
             String email,
@@ -71,7 +71,7 @@ public class EmployeeManager implements Searchable {
                 bonus
         );
         employees.put(m.getEmployeeId(), m);
-        return m;
+        //return m;
     }
 
     // Find users by ID
@@ -212,6 +212,7 @@ public class EmployeeManager implements Searchable {
         }
     }
 
+    // Save
     public void save(String filename) {
         List<String> lines = employees.values()
                 .stream()
