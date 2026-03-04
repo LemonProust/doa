@@ -8,13 +8,12 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
-@MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "employee_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer employeeId;
+    private Long employeeId;
 
     @NotBlank(message = "Name is required.")
     @Column(nullable = false)
@@ -25,9 +24,11 @@ public abstract class Employee {
     private String nif;
 
     @Column(unique = true)
+    @Email(message = "Invalid email")
     private String email;
 
     @Column(unique = true)
+    @Pattern(regexp = "\\d{9,15}", message = "Phone must contain between 9 and 15 digits")
     private String phone;
 
     @Size(max = 100)
@@ -43,7 +44,7 @@ public abstract class Employee {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal salary;
 
-    public Employee() {}
+    protected Employee() {}
 
     public Employee(String name, String nif, String email, String phone, String address, LocalDate hireDate, BigDecimal salary) {
         this.name = name;
@@ -55,7 +56,7 @@ public abstract class Employee {
         this.salary = salary;
     }
 
-    public Integer getEmployeeId() {
+    public Long getEmployeeId() {
         return employeeId;
     }
 
@@ -138,15 +139,11 @@ public abstract class Employee {
 
     @Override
     public int hashCode() {
-        return Objects.hash(employeeId, nif, email, phone, hireDate);
+        return getClass().hashCode();
     }
 
     @Override
     public String toString() {
-        return "Employee{ employeeId=%d, name='%s', nif='%s', email ='%s', phone='$s', address='%s', hireDate='%s', salary=%.2f}";
+        return String.format("Employee{ employeeId=%d, name='%s', nif='%s', email ='%s', phone='$s', address='%s', hireDate='%s', salary=%.2f}", getEmployeeId(), getName(), getNif(), getEmail(), getPhone(), getAddress(), getSalary());
     }
-
-    //    public BigDecimal calculatePay() {
-//        return getSalary().multiply(new BigDecimal("100"));
-//    }
 }

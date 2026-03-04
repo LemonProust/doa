@@ -1,16 +1,31 @@
 package pt.ipp.estg.doa.store.model.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "manager")
+@DiscriminatorValue("MANAGER")
 public class Manager extends Employee {
+
+    @NotBlank(message = "Department is required.")
+    @Column(nullable = false)
     private String department;
+
+    @NotNull(message = "Bonus is required.")
+    @PositiveOrZero(message = "Bonus must be zero or positive.")
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal bonus;
 
-    public Manager() {
+    protected Manager() {
         super();
     }
 
@@ -36,16 +51,22 @@ public class Manager extends Employee {
         this.bonus = bonus;
     }
 
-    private void validateBonus(BigDecimal bonus) {
-        if (bonus.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Bonus cannot be negative.");
-        }
+    /***
+     * Business methods
+     * */
+
+    @Override
+    public String getEmployeeType() {
+        return "MANAGER";
     }
 
-    private void validateDepartment(String department) {
-        if (department == null) {
-            throw new IllegalArgumentException("Department cannot be null.");
-        }
+    public BigDecimal getAnnualCompensation() {
+        return getSalary().multiply(new BigDecimal(12)).add(getBonus());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Manager{id=%d, name='%s', department='%s', bonus=%.2f", getEmployeeId(), getName(), getDepartment(), getBonus());
     }
 
 }

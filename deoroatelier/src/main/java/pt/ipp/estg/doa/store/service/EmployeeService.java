@@ -1,18 +1,33 @@
 package pt.ipp.estg.doa.store.service;
 
-import org.springframework.stereotype.Service;
-import pt.ipp.estg.doa.store.model.entity.Employee;
-import pt.ipp.estg.doa.store.repository.EmployeeRepository;
+import pt.ipp.estg.doa.store.model.dto.request.CreateManagerRequest;
+import pt.ipp.estg.doa.store.model.dto.request.CreateSalespersonRequest;
+import pt.ipp.estg.doa.store.model.dto.response.EmployeeResponse;
+import pt.ipp.estg.doa.store.model.dto.response.ManagerResponse;
+import pt.ipp.estg.doa.store.model.dto.response.SalespersonResponse;
 
-@Service
-public class EmployeeService {
-    private final EmployeeRepository repository;
+import java.math.BigDecimal;
+import java.util.List;
 
-    public EmployeeService(EmployeeRepository repository) {
-        this.repository = repository;
-    }
+public interface EmployeeService {
 
-    public Employee findById(Integer id) {
-        return this.repository.findById(id).orElse(null);
-    }
+    // Salesperson operations
+    SalespersonResponse createSalesperson(CreateSalespersonRequest request);
+    List<SalespersonResponse> getAllSalespersons();
+
+    // Manager operations
+    ManagerResponse createManager(CreateManagerRequest request);
+    List<ManagerResponse> getAllManagers();
+
+    // Common operations
+    EmployeeResponse getEmployeeById(Long id);
+    EmployeeResponse getEmployeeByNif(String nif);
+    List<EmployeeResponse> getAllEmployees();
+    EmployeeResponse updateEmployeeSalary(Long id, BigDecimal newSalary);
+    void deleteEmployee(Long id);
+
+    // Business operations
+    SalespersonResponse addSaleToSalesperson(Long salespersonId, BigDecimal amount);
+    List<EmployeeResponse> getEmployeesByType(String type);
+    boolean existsByNif(String nif);
 }
