@@ -3,6 +3,7 @@ package pt.ipp.estg.doa.store.exception;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -150,5 +151,32 @@ public class GlobalExceptionHandler {
         ex.printStackTrace();
 
         return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(error);
+    }
+    @ExceptionHandler(InsufficientStockException.class)
+    public ResponseEntity<ErrorResponse> handleInsufficientStock(
+            InsufficientStockException ex, HttpServletRequest request) {
+
+        ErrorResponse error = new ErrorResponse(
+                CONFLICT.value(),
+                "Insufficient Stock",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(CONFLICT).body(error);
+    }
+
+    @ExceptionHandler(OutOfStockException.class)
+    public ResponseEntity<ErrorResponse> handleOutOfStock(
+            OutOfStockException ex, HttpServletRequest request) {
+
+        ErrorResponse error = new ErrorResponse(
+                CONFLICT.value(),
+                "Out of Stock",
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(CONFLICT).body(error);
     }
 }
