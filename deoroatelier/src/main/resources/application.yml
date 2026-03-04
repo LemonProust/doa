@@ -1,14 +1,15 @@
 server:
   port: 8011
   servlet:
-    context-path: /api/v1
+    context-path: /api
+
 spring:
   application:
     name: deoroatelier
   config:
     import: optional:file:.env[.properties]
   datasource:
-    url: jdbc:mysql://${DB_URL}:${DB_PORT}/${DB_NAME}?createDatabaseIfNotExist=true
+    url: jdbc:mysql://${DB_URL}:${DB_PORT}/${DB_NAME}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
     username: ${USER_NAME}
     password: ${PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,3 +21,14 @@ spring:
       hibernate:
         format_sql: true
     database: mysql
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+    date-format: dd-MM-yyyy
+
+logging:
+  level:
+    pt.ipp.estg.doa: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO

@@ -379,7 +379,7 @@ mvn test -Dtest=OrderServiceTest
 
 1. Import the Postman collection from `postman/doa-store-collection.json`
 2. Set up environment variables:
-    - `base_url`: `http://localhost:8080/api`
+    - `base_url`: `http://localhost:8011/api/
 3. Run the collection tests
 
 ### Test Scenarios to Verify
