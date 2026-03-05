@@ -1,3 +1,5 @@
+### ATENÇÃO ----------> JUSTIFICA-SE A PRESENTE CONFIGURAÇÃO POR SE
+### TRATAR APENAS DE UM AMBIENTE DE DESENVOLVIMENTO E TESTES
 server:
   port: 8011
   servlet:
@@ -31,3 +33,13 @@ logging:
     pt.ipp.estg.doa: DEBUG
     org.springframework.web: INFO
     org.hibernate: INFO
+
+    ### ----> SWAGGER <----------
+
+springdoc:
+  api-docs:
+    path: /api-docs # URL da documentação JSON
+  swagger-ui:
+    path: /swagger-ui.html # URL da interface visual
+    operations-sorter: method # Ordemar endpoints por métodos HTTP
+    display-request-duration: true # Mostrar duração dos pedidos

@@ -97,7 +97,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new ResourceNotFoundException("Order", "id", orderId);
         }
 
-        return paymentRepository.findByOrderId(orderId).stream()
+        return paymentRepository.findByOrderOrderId(orderId).stream()
                 .map(this::mapToPaymentSummaryResponse)
                 .collect(Collectors.toList());
     }
@@ -237,7 +237,7 @@ public class PaymentServiceImpl implements PaymentService {
             throw new ResourceNotFoundException("Order", "id", orderId);
         }
 
-        return paymentRepository.findByOrderId(orderId).stream()
+        return paymentRepository.findByOrderOrderId(orderId).stream()
                 .map(this::mapToPaymentResponse)
                 .collect(Collectors.toList());
     }

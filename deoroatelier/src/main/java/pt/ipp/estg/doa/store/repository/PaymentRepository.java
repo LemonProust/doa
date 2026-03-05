@@ -17,7 +17,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     // Find by order
     List<Payment> findByOrder(Order order);
 
-    List<Payment> findByOrderId(Long orderId);
+    List<Payment> findByOrderOrderId(Long orderId);
 
     // Find by payment method
     List<Payment> findByPaymentMethod(PaymentMethod paymentMethod);
@@ -45,14 +45,14 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     @Query("""
             SELECT SUM(p.amount)
              FROM Payment p
-             WHERE p.order.id = :orderId AND p.confirmed = true
+             WHERE p.order.orderId = :orderId AND p.confirmed = true
             """)
     BigDecimal getTotalConfirmedPaymentsForOrder(@Param("orderId") Long orderId);
 
     @Query("""
             SELECT COUNT(p)
-             FROM Payment p 
-             WHERE p.order.id = :orderId
+             FROM Payment p
+             WHERE p.order.orderId = :orderId
             """)
     int countPaymentsForOrder(@Param("orderId") Long orderId);
 
@@ -103,7 +103,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     @Query("""
             SELECT p
             FROM Payment p
-             WHERE p.order.customer.id = :customerId
+             WHERE p.order.customer.customerId = :customerId
               ORDER BY p.paymentDate DESC
             """)
     List<Payment> findByCustomerId(@Param("customerId") Long customerId);
