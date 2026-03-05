@@ -13,7 +13,7 @@ import java.util.Objects;
 public abstract class Jewelry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long jewelryId;
 
     @NotBlank(message = "Name is required")
     @Size(max = 200, message = "Name must not exceed 200 characters")
@@ -52,7 +52,7 @@ public abstract class Jewelry {
     @Version
     private Integer version;
 
-    // Construtores
+    // Constructors
     protected Jewelry() {}
 
     protected Jewelry(String name, JewelryType type, String material, BigDecimal weight,
@@ -67,8 +67,8 @@ public abstract class Jewelry {
     }
 
     // Getters e Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { return jewelryId; }
+    public void setId(Long jewelryId) { this.jewelryId = jewelryId; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -94,7 +94,7 @@ public abstract class Jewelry {
     public Integer getVersion() { return version; }
     public void setVersion(Integer version) { this.version = version; }
 
-    // Métodos de negócio
+    // Business methods
     public abstract String getJewelryType();
 
     public boolean isInStock() {
@@ -140,7 +140,7 @@ public abstract class Jewelry {
         if (this == o) return true;
         if (!(o instanceof Jewelry)) return false;
         Jewelry jewelry = (Jewelry) o;
-        return id != null && Objects.equals(id, jewelry.id);
+        return jewelryId != null && Objects.equals(jewelryId, jewelry.jewelryId);
     }
 
     @Override
@@ -151,6 +151,6 @@ public abstract class Jewelry {
     @Override
     public String toString() {
         return String.format("Jewelry{id=%d, name='%s', type=%s, price=%.2f, stock=%d}",
-                id, name, type, price, stock);
+                jewelryId, name, type, price, stock);
     }
 }

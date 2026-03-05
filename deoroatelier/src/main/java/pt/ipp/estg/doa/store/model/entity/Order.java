@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long orderId;
 
     @NotNull(message = "Order date is required")
     @Column(name = "order_date", nullable = false)
@@ -33,7 +33,7 @@ public class Order {
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "salesperson_id")
+    @JoinColumn(name = "employee_id")
     private Salesperson salesperson;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,
@@ -72,12 +72,12 @@ public class Order {
     }
 
     // Getters e Setters
-    public Long getId() {
-        return id;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 
     public LocalDate getOrderDate() {
@@ -144,7 +144,22 @@ public class Order {
         this.version = version;
     }
 
-    // Métodos de negócio
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDate updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+    // Business Methods
 
     public void addItem(OrderItem item) {
         if (!status.canModify()) {
@@ -230,7 +245,7 @@ public class Order {
         if (this == o) return true;
         if (!(o instanceof Order)) return false;
         Order order = (Order) o;
-        return id != null && Objects.equals(id, order.id);
+        return orderId != null && Objects.equals(orderId, order.orderId);
     }
 
     @Override
@@ -241,6 +256,6 @@ public class Order {
     @Override
     public String toString() {
         return String.format("Order{id=%d, date=%s, status=%s, total=%.2f, items=%d}",
-                id, orderDate, status, totalAmount, items.size());
+                orderId, orderDate, status, totalAmount, items.size());
     }
 }

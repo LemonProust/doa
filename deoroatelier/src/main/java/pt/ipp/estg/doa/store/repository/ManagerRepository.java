@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public interface ManagerRepository extends JpaRepository<Manager, Integer> {
+public interface ManagerRepository extends JpaRepository<Manager, Long> {
     Optional<Manager> findByDepartment(String department);
 
     List<Manager> findByDepartmentContainingIgnoreCase(String department);

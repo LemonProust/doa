@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long paymentId;
 
     @NotNull(message = "Payment amount is required")
     @Positive(message = "Payment amount must be positive")
@@ -79,8 +79,8 @@ public class Payment {
     }
 
     // Getters e Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getPaymentIdId() { return paymentId; }
+    public void setPaymentId(Long paymentId) { this.paymentId = paymentId; }
 
     public BigDecimal getAmount() { return amount; }
     public void setAmount(BigDecimal amount) {
@@ -198,7 +198,7 @@ public class Payment {
         if (this == o) return true;
         if (!(o instanceof Payment)) return false;
         Payment payment = (Payment) o;
-        return id != null && Objects.equals(id, payment.id);
+        return paymentId != null && Objects.equals(paymentId, payment.paymentId);
     }
 
     @Override
@@ -209,6 +209,6 @@ public class Payment {
     @Override
     public String toString() {
         return String.format("Payment{id=%d, amount=%.2f, method=%s, confirmed=%s, transaction=%s}",
-                id, amount, paymentMethod, confirmed, transactionId);
+                paymentId, amount, paymentMethod, confirmed, transactionId);
     }
 }

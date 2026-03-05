@@ -24,7 +24,7 @@ import java.util.Objects;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long customerId;
 
     @NotBlank(message = "Name is required")
     @Size(max = 100, message = "Name must not exceed 100 characters")
@@ -113,8 +113,8 @@ public class Customer {
     }
 
     // Getters e Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getCustomerId() { return customerId; }
+    public void setId(Long customerId) { this.customerId = customerId; }
 
     public String getName() { return name; }
     public void setName(String name) {
@@ -309,7 +309,7 @@ public class Customer {
         if (this == o) return true;
         if (!(o instanceof Customer)) return false;
         Customer customer = (Customer) o;
-        return id != null && Objects.equals(id, customer.id);
+        return customerId != null && Objects.equals(customerId, customer.customerId);
     }
 
     @Override
@@ -320,6 +320,6 @@ public class Customer {
     @Override
     public String toString() {
         return String.format("Customer{id=%d, name='%s', nif='%s', email='%s', tier='%s'}",
-                id, name, nif, email, getCustomerTier());
+                customerId, name, nif, email, getCustomerTier());
     }
 }

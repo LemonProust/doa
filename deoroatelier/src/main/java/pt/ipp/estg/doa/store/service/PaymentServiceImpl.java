@@ -42,7 +42,7 @@ public class PaymentServiceImpl implements PaymentService {
                         request.getOrderId()));
 
         // Validate payment amount
-        validatePaymentAmount(order.getId(), request.getAmount());
+        validatePaymentAmount(order.getOrderId(), request.getAmount());
 
         // Create payment
         Payment payment = new Payment(order, request.getAmount(), request.getPaymentMethod());
@@ -291,7 +291,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         // Basic payment info
         response.setId(payment.getId());
-        response.setOrderId(payment.getOrder().getId());
+        response.setOrderId(payment.getOrder().getOrderId());
         response.setAmount(payment.getAmount());
         response.setPaymentDate(payment.getPaymentDate());
         response.setPaymentMethod(payment.getPaymentMethod());
@@ -308,7 +308,7 @@ public class PaymentServiceImpl implements PaymentService {
         response.setOrderTotal(order.getTotalAmount());
 
         // Payment summary for the order
-        BigDecimal totalPaid = getTotalPaidForOrder(order.getId());
+        BigDecimal totalPaid = getTotalPaidForOrder(order.getOrderId());
         response.setTotalPaidForOrder(totalPaid);
         response.setRemainingAmount(order.getTotalAmount().subtract(totalPaid));
         response.setOrderFullyPaid(totalPaid.compareTo(order.getTotalAmount()) >= 0);
@@ -319,7 +319,7 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentSummaryResponse mapToPaymentSummaryResponse(Payment payment) {
         return new PaymentSummaryResponse(
                 payment.getId(),
-                payment.getOrder().getId(),
+                payment.getOrder().getOrderId(),
                 payment.getAmount(),
                 payment.getPaymentDate(),
                 payment.getPaymentMethod(),

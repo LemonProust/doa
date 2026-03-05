@@ -7,11 +7,13 @@ import pt.ipp.estg.doa.store.model.dto.request.AddOrderItemRequest;
 import pt.ipp.estg.doa.store.model.dto.request.CreateOrderRequest;
 import pt.ipp.estg.doa.store.model.dto.request.OrderItemRequest;
 import pt.ipp.estg.doa.store.model.dto.request.UpdateOrderStatusRequest;
+import pt.ipp.estg.doa.store.model.dto.response.OrderItemResponse;
 import pt.ipp.estg.doa.store.model.dto.response.OrderResponse;
 import pt.ipp.estg.doa.store.model.dto.response.OrderSummaryResponse;
 import pt.ipp.estg.doa.store.model.entity.*;
 import pt.ipp.estg.doa.store.repository.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
             throw new ResourceNotFoundException("Salesperson", "id", salespersonId);
         }
 
-        return orderRepository.findBySalespersonId(salespersonId).stream()
+        return orderRepository.findBySalespersonEmployeeId(salespersonId).stream()
                 .map(this::mapToOrderSummaryResponse)
                 .collect(Collectors.toList());
     }
@@ -203,7 +205,6 @@ public class OrderServiceImpl implements OrderService {
                 .ifPresent(item -> {
                     int newQuantity = item.getQuantity() + request.getQuantity();
                     item.updateQuantity(newQuantity);
-                    return;
                 });
 
         // Create new item
@@ -230,7 +231,7 @@ public class OrderServiceImpl implements OrderService {
         OrderItem item = orderItemRepository.findById(itemId)
                 .orElseThrow(() -> new ResourceNotFoundException("OrderItem", "id", itemId));
 
-        if (!item.getOrder().getId().equals(orderId)) {
+        if (!item.getOrder().getOrderId().equals(orderId)) {
             throw new InvalidOperationException("remove item",
                     "Item does not belong to this order");
         }
@@ -258,7 +259,7 @@ public class OrderServiceImpl implements OrderService {
         OrderItem item = orderItemRepository.findById(itemId)
                 .orElseThrow(() -> new ResourceNotFoundException("OrderItem", "id", itemId));
 
-        if (!item.getOrder().getId().equals(orderId)) {
+        if (!item.getOrder().getOrderId().equals(orderId)) {
             throw new InvalidOperationException("update item",
                     "Item does not belong to this order");
         }
@@ -422,7 +423,7 @@ public class OrderServiceImpl implements OrderService {
         OrderResponse response = new OrderResponse();
 
         // Basic info
-        response.setId(order.getId());
+        response.setId(order.getOrderId());
         response.setOrderDate(order.getOrderDate());
         response.setStatus(order.getStatus());
         response.setTotalAmount(order.getTotalAmount());
@@ -439,7 +440,7 @@ public class OrderServiceImpl implements OrderService {
 
         // Salesperson info
         if (order.getSalesperson() != null) {
-            response.setSalespersonId(order.getSalesperson().getId());
+            response.setSalespersonId(order.getSalesperson().getEmployeeId());
             response.setSalespersonName(order.getSalesperson().getName());
         }
 
@@ -463,7 +464,7 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderItemResponse mapToOrderItemResponse(OrderItem item) {
         return new OrderItemResponse(
-                item.getId(),
+                item.getOrderItemId(),
                 item.getJewelry().getId(),
                 item.getJewelry().getName(),
                 item.getJewelry().getJewelryType(),
@@ -475,7 +476,7 @@ public class OrderServiceImpl implements OrderService {
 
     private OrderSummaryResponse mapToOrderSummaryResponse(Order order) {
         return new OrderSummaryResponse(
-                order.getId(),
+                order.getOrderId(),
                 order.getOrderDate(),
                 order.getStatus(),
                 order.getTotalAmount(),

@@ -1,9 +1,21 @@
 package pt.ipp.estg.doa.store.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import pt.ipp.estg.doa.store.model.dto.request.AddOrderItemRequest;
+import pt.ipp.estg.doa.store.model.dto.request.CreateOrderRequest;
+import pt.ipp.estg.doa.store.model.dto.request.UpdateOrderStatusRequest;
+import pt.ipp.estg.doa.store.model.dto.response.OrderResponse;
+import pt.ipp.estg.doa.store.model.dto.response.OrderSummaryResponse;
+import pt.ipp.estg.doa.store.model.entity.OrderStatus;
 import pt.ipp.estg.doa.store.service.OrderServiceImpl;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
@@ -11,7 +23,7 @@ import pt.ipp.estg.doa.store.service.OrderServiceImpl;
 public class OrderController {
     private final OrderServiceImpl orderService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderServiceImpl orderService) {
         this.orderService = orderService;
     }
 

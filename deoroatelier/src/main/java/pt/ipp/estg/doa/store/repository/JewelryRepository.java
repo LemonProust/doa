@@ -17,7 +17,7 @@ public interface JewelryRepository extends JpaRepository<Jewelry, Long> {
 
     @Query("""
             SELECT j
-             FROM Jewelry j 
+             FROM Jewelry j
               WHERE j.stock > 0
             """)
     List<Jewelry> findInStock();

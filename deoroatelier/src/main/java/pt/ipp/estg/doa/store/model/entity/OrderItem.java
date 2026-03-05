@@ -12,7 +12,7 @@ import java.util.Objects;
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long orderItemId;
 
     @NotNull(message = "Quantity is required")
     @Positive(message = "Quantity must be positive")
@@ -46,8 +46,8 @@ public class OrderItem {
     }
 
     // Getters e Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getOrderItemId() { return orderItemId; }
+    public void setOrderItemId(Long orderItemId) { this.orderItemId = orderItemId; }
 
     public Integer getQuantity() { return quantity; }
     public void setQuantity(Integer quantity) {
@@ -99,7 +99,7 @@ public class OrderItem {
         if (this == o) return true;
         if (!(o instanceof OrderItem)) return false;
         OrderItem orderItem = (OrderItem) o;
-        return id != null && Objects.equals(id, orderItem.id);
+        return orderItemId != null && Objects.equals(orderItemId, orderItem.orderItemId);
     }
 
     @Override
@@ -110,6 +110,6 @@ public class OrderItem {
     @Override
     public String toString() {
         return String.format("OrderItem{id=%d, jewelry='%s', quantity=%d, subtotal=%.2f}",
-                id, getJewelryName(), quantity, subtotal);
+                orderItemId, getJewelryName(), quantity, subtotal);
     }
 }

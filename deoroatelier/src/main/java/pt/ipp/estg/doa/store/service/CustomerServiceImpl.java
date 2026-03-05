@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pt.ipp.estg.doa.store.exception.*;
 import pt.ipp.estg.doa.store.model.dto.request.CreateCustomerRequest;
+import pt.ipp.estg.doa.store.model.dto.request.UpdateCustomerRequest;
 import pt.ipp.estg.doa.store.model.dto.response.CustomerResponse;
 import pt.ipp.estg.doa.store.model.dto.response.CustomerSummaryResponse;
 import pt.ipp.estg.doa.store.model.entity.Customer;

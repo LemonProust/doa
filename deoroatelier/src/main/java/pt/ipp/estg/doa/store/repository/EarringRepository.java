@@ -2,7 +2,6 @@ package pt.ipp.estg.doa.store.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import pt.ipp.estg.doa.store.model.entity.Earring;
-import pt.ipp.estg.doa.store.model.entity.Jewelry;
 
 import java.util.List;
 
