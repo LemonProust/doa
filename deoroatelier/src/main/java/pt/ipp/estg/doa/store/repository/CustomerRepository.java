@@ -40,7 +40,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     // Find by loyalty points
     List<Customer> findByLoyaltyPointsGreaterThanEqual(Integer points);
 
-    // Find by birth date
+    // Find by birthdate
     List<Customer> findByBirthDate(LocalDate birthDate);
 
     // Find customers with birthday today

@@ -7,9 +7,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "jewelry")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "jewelry_type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "jewelry_tb")
 public abstract class Jewelry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

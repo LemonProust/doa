@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "salesperson")
+@Table(name = "salesperson_tb")
 @DiscriminatorValue("SALESPERSON")
 public class Salesperson extends Employee{
 

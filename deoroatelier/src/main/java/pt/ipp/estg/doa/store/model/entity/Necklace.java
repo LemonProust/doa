@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "necklace")
+@Table(name = "necklace_tb")
 @DiscriminatorValue("NECKLACE")
 public class Necklace extends Jewelry {
 

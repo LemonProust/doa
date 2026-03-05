@@ -13,11 +13,11 @@ import java.util.List;
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
     List<OrderItem> findByOrder(Order order);
 
-    List<OrderItem> findByOrderId(Long orderId);
+    List<OrderItem> findByOrderOrderId(Long orderId);
 
     List<OrderItem> findByJewelry(Jewelry jewelry);
 
-    List<OrderItem> findByJewelryId(Long jewelryId);
+    List<OrderItem> findByJewelryJewelryId(Long jewelryId);
 
     @Query("""
             SELECT SUM(oi.quantity)

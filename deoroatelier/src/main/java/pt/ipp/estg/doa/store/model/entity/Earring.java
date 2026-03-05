@@ -9,8 +9,8 @@ import jakarta.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "earring")
 @DiscriminatorValue("EARRING")
+@Table(name = "earring_tb")
 public class Earring extends Jewelry{
     @NotBlank(message = "Clasp type is required")
     @Column(name = "clasp_type", nullable = false)

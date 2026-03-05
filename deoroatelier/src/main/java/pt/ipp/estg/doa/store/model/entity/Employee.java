@@ -10,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "employee_type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "employee_tb")
 public abstract class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

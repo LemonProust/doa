@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "ring")
+@Table(name = "ring_tb")
 @DiscriminatorValue("RING")
 public class Ring extends Jewelry {
     @NotNull(message = "Size is required")

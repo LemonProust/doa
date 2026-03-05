@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "manager")
 @DiscriminatorValue("MANAGER")
+@Table(name = "manager_tb")
 public class Manager extends Employee {
 
     @NotBlank(message = "Department is required.")
