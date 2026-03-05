@@ -53,7 +53,7 @@ public class Order {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    // Construtores
+    // Constructors
     protected Order() {
     }
 

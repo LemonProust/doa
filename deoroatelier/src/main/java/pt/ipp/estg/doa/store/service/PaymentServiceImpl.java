@@ -290,7 +290,7 @@ public class PaymentServiceImpl implements PaymentService {
         PaymentResponse response = new PaymentResponse();
 
         // Basic payment info
-        response.setId(payment.getId());
+        response.setId(payment.getPaymentIdId());
         response.setOrderId(payment.getOrder().getOrderId());
         response.setAmount(payment.getAmount());
         response.setPaymentDate(payment.getPaymentDate());
@@ -318,7 +318,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     private PaymentSummaryResponse mapToPaymentSummaryResponse(Payment payment) {
         return new PaymentSummaryResponse(
-                payment.getId(),
+                payment.getPaymentIdId(),
                 payment.getOrder().getOrderId(),
                 payment.getAmount(),
                 payment.getPaymentDate(),

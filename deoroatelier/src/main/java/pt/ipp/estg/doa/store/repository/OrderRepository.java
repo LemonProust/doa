@@ -86,9 +86,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Object[]> getOrderCountByStatus();
 
     @Query("""
-            SELECT o.customer.id, COUNT(o) as orderCount
+            SELECT o.customer.customerId, COUNT(o) as orderCount
             FROM Order o
-             GROUP BY o.customer.id
+             GROUP BY o.customer.customerId
               ORDER BY orderCount DESC
             """)
     List<Object[]> findTopCustomers();

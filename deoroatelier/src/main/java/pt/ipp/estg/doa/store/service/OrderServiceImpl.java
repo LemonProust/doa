@@ -433,7 +433,7 @@ public class OrderServiceImpl implements OrderService {
 
         // Customer info
         if (order.getCustomer() != null) {
-            response.setCustomerId(order.getCustomer().getId());
+            response.setCustomerId(order.getCustomer().getCustomerId());
             response.setCustomerName(order.getCustomer().getName());
             response.setCustomerNif(order.getCustomer().getNif());
         }

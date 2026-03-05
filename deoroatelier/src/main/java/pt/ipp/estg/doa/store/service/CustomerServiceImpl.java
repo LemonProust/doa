@@ -307,7 +307,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerResponse mapToCustomerResponse(Customer customer) {
         CustomerResponse response = new CustomerResponse();
 
-        response.setId(customer.getId());
+        response.setId(customer.getCustomerId());
         response.setName(customer.getName());
         response.setNif(customer.getNif());
         response.setEmail(customer.getEmail());
@@ -335,7 +335,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private CustomerSummaryResponse mapToCustomerSummaryResponse(Customer customer) {
         return new CustomerSummaryResponse(
-                customer.getId(),
+                customer.getCustomerId(),
                 customer.getName(),
                 customer.getNif(),
                 customer.getEmail(),
