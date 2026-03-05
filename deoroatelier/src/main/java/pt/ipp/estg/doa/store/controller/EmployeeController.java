@@ -1,5 +1,7 @@
 package pt.ipp.estg.doa.store.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 @RequestMapping("/employee")
 @CrossOrigin(origins = "*")
+@Tag(name = "Colaboradores", description = "Gerenciador de colaboradores")
 public class EmployeeController {
 
     private final EmployeeServiceImpl employeeService;
@@ -30,6 +33,7 @@ public class EmployeeController {
     // ============= SALESPERSON ENDPOINTS =============
 
     @PostMapping("/salesperson")
+    @Operation(summary = "Adicionar colaborador", description = "Adiciona um novo colaborador para as vendas")
     public ResponseEntity<SalespersonResponse> createSalesperson(
             @RequestBody @Valid CreateSalespersonRequest request) {
         SalespersonResponse response = employeeService.createSalesperson(request);
@@ -37,12 +41,14 @@ public class EmployeeController {
     }
 
     @GetMapping("/salespersons")
+    @Operation(summary = "Lista de colaborador", description = "Lista de colaboradores de vendas")
     public ResponseEntity<List<SalespersonResponse>> getAllSalespersons() {
         List<SalespersonResponse> responses = employeeService.getAllSalespersons();
         return ResponseEntity.ok(responses);
     }
 
     @PostMapping("/{id}/sales")
+    @Operation(summary = "Contador de vendas por colaborador", description = "Por cada venda adicona ao respetivo colaborador")
     public ResponseEntity<SalespersonResponse> addSale(
             @PathVariable Long id,
             @RequestParam BigDecimal amount) {
@@ -53,6 +59,7 @@ public class EmployeeController {
     // ============= MANAGER ENDPOINTS =============
 
     @PostMapping("/manager")
+    @Operation(summary = "Adicionar colaborador", description = "Adicionar um gestor")
     public ResponseEntity<ManagerResponse> createManager(
             @Valid @RequestBody CreateManagerRequest request) {
         ManagerResponse response = employeeService.createManager(request);
